@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class CloudSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] clouds;
-    private float distanceBetweenClouds = 3f;
-    private float minX, maxX;
-    private float lastCloudPositionY;
-    private float controlX;
+    [SerializeField] private GameObject[] _clouds;
+    private float _distanceBetweenClouds = 3f;
+    private float _minX, _maxX;
+    private float _lastCloudPositionY;
+    private float _controlX;
 
-    [SerializeField] private GameObject[] pickups;
+    [SerializeField] private GameObject[] _pickups;
 
-    private GameObject player;
+    private GameObject _player;
 
     private void Awake()
     {
-        controlX = 0;
-        setMinAndMaxX();
+        _controlX = 0;
+        SetMinAndMaxX();
         CreateClouds();
+        _player = GameObject.Find("Player");
+    }
 
-
+    private void Start()
+    {
+        PositionPlayer();
     }
 
     void ShuffleClouds(GameObject[] cloudsArray)
@@ -36,45 +40,125 @@ public class CloudSpawner : MonoBehaviour
 
     void CreateClouds()
     {
-        ShuffleClouds(clouds);
+        ShuffleClouds(_clouds);
         float positionY = 0f;
 
-        for (int i = 0; i < clouds.Length; i++)
+        for (int i = 0; i < _clouds.Length; i++)
         {
-            Vector3 temp = clouds[i].transform.position;
+            Vector3 temp = _clouds[i].transform.position;
             temp.y = positionY;
 
-            if (controlX == 0)
-            {
-                temp.x = Random.Range(0.0f, maxX);
-                controlX = 1;
-            }
-            else if (controlX == 1)
-            {
-                temp.x = Random.Range(0.0f, minX);
-                controlX = 2;
-            }
-            else if (controlX == 2)
-            {
-                temp.x = Random.Range(1.0f, maxX);
-                controlX = 3;
-            }
-            else if (controlX == 3)
-            {
-                temp.x = Random.Range(-1.0f, minX);
-                controlX = 0;
-            }
+            temp.x = GetCloudPosition(temp);
 
-            lastCloudPositionY = positionY;
-            clouds[i].transform.position = temp;
-            positionY -= distanceBetweenClouds;
+            _lastCloudPositionY = positionY;
+            _clouds[i].transform.position = temp;
+            positionY -= _distanceBetweenClouds;
         }
 
     }
-    void setMinAndMaxX()
+
+    private float GetCloudPosition(Vector3 temp)
+    {
+        if (_controlX == 0)
+        {
+            temp.x = Random.Range(0.0f, _maxX);
+            _controlX = 1;
+        }
+        else if (_controlX == 1)
+        {
+            temp.x = Random.Range(0.0f, _minX);
+            _controlX = 2;
+        }
+        else if (_controlX == 2)
+        {
+            temp.x = Random.Range(1.0f, _maxX);
+            _controlX = 3;
+        }
+        else if (_controlX == 3)
+        {
+            temp.x = Random.Range(-1.0f, _minX);
+            _controlX = 0;
+        }
+
+        return temp.x;
+    }
+    void SetMinAndMaxX()
     {
         Vector3 bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        maxX = bounds.x - 0.5f;
-        minX = -bounds.x + 0.5f;
+        _maxX = bounds.x - 0.5f;
+        _minX = -bounds.x + 0.5f;
+    }
+
+    void PositionPlayer()
+    {
+        GameObject[] killerClouds = GameObject.FindGameObjectsWithTag("KillerCloud");
+        GameObject[] safeClouds = GameObject.FindGameObjectsWithTag("Cloud");
+
+        for (int i = 0; i < killerClouds.Length; i++)
+        {
+            if (killerClouds[i].transform.position.y == 0f)
+            {
+                Vector3 t = killerClouds[i].transform.position;
+                killerClouds[i].transform.position = new Vector3(safeClouds[0].transform.position.x, safeClouds[0].transform.position.y, safeClouds[0].transform.position.z);
+                safeClouds[0].transform.position = t;
+            }
+        }
+
+        Vector3 temp = safeClouds[0].transform.position;
+
+        for (int i = 1; i < safeClouds.Length; i++)
+        {
+            if (temp.y < safeClouds[i].transform.position.y)
+            {
+                temp = safeClouds[i].transform.position;
+            }
+        }
+
+        temp.y += 0.8f;
+        _player.transform.position = temp;
+    }
+
+    void OnTriggerEnter2D(Collider2D target)
+    {
+        if (target.tag == "Cloud" || target.tag == "KillerCloud")
+        {
+            if (target.transform.position.y == _lastCloudPositionY)
+            {
+                ShuffleClouds(_clouds);
+                ShuffleClouds(_pickups);
+
+                Vector3 temp = target.transform.position;
+
+                for (int i = 0; i < _clouds.Length; i++)
+                {
+                    if (!_clouds[i].activeInHierarchy)
+                    {
+                        temp.x = GetCloudPosition(temp);
+
+                        temp.y -= _distanceBetweenClouds;
+                        _lastCloudPositionY = temp.y;
+                        _clouds[i].transform.position = temp;
+                        _clouds[i].SetActive(true);
+
+                        // int random = Random.Range(0, _pickups.Length);
+
+                        // if (_pickups[random].tag == "Life")
+                        // {
+                        //     if (PlayerScore.lifeCount < 2)
+                        //     {
+                        //         _pickups[random].transform.position = new Vector3(_clouds[i].transform.position.x, _clouds[i].transform.position.y + 0.7f, _clouds[i].transform.position.z);
+                        //         _pickups[random].SetActive(true);
+                        //     }
+                        // }
+                        // else
+                        // {
+                        //     _pickups[random].transform.position = new Vector3(_clouds[i].transform.position.x, _clouds[i].transform.position.y + 0.7f, _clouds[i].transform.position.z);
+                        //     _pickups[random].SetActive(true);
+                        // }
+                    }
+                }
+            }
+        }
+
     }
 }
