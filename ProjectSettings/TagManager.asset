@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cloud
   - KillerCloud
+  - Background
   layers:
   - Default
   - TransparentFX

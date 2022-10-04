@@ -118,16 +118,16 @@ public class CloudSpawner : MonoBehaviour
         _player.transform.position = temp;
     }
 
-    void OnTriggerEnter2D(Collider2D target)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (target.tag == "Cloud" || target.tag == "KillerCloud")
+        if (other.tag == "Cloud" || other.tag == "KillerCloud")
         {
-            if (target.transform.position.y == _lastCloudPositionY)
+            if (other.transform.position.y == _lastCloudPositionY)
             {
                 ShuffleClouds(_clouds);
                 ShuffleClouds(_pickups);
 
-                Vector3 temp = target.transform.position;
+                Vector3 temp = other.transform.position;
 
                 for (int i = 0; i < _clouds.Length; i++)
                 {
@@ -140,21 +140,6 @@ public class CloudSpawner : MonoBehaviour
                         _clouds[i].transform.position = temp;
                         _clouds[i].SetActive(true);
 
-                        // int random = Random.Range(0, _pickups.Length);
-
-                        // if (_pickups[random].tag == "Life")
-                        // {
-                        //     if (PlayerScore.lifeCount < 2)
-                        //     {
-                        //         _pickups[random].transform.position = new Vector3(_clouds[i].transform.position.x, _clouds[i].transform.position.y + 0.7f, _clouds[i].transform.position.z);
-                        //         _pickups[random].SetActive(true);
-                        //     }
-                        // }
-                        // else
-                        // {
-                        //     _pickups[random].transform.position = new Vector3(_clouds[i].transform.position.x, _clouds[i].transform.position.y + 0.7f, _clouds[i].transform.position.z);
-                        //     _pickups[random].SetActive(true);
-                        // }
                     }
                 }
             }
