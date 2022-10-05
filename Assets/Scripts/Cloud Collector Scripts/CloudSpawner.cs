@@ -20,6 +20,11 @@ public class CloudSpawner : MonoBehaviour
         SetMinAndMaxX();
         CreateClouds();
         _player = GameObject.Find("Player");
+
+        for (int i = 0; i < _pickups.Length; i++)
+        {
+            _pickups[i].SetActive(false);
+        }
     }
 
     private void Start()
@@ -122,28 +127,64 @@ public class CloudSpawner : MonoBehaviour
     {
         if (other.tag == "Cloud" || other.tag == "KillerCloud")
         {
-            if (other.transform.position.y == _lastCloudPositionY)
+            HandleCloudCollision(other);
+        }
+
+    }
+
+    private void HandleCloudCollision(Collider2D other)
+    {
+        if (other.transform.position.y == _lastCloudPositionY)
+        {
+            ShuffleClouds(_clouds);
+            ShuffleClouds(_pickups);
+
+            Vector3 temp = other.transform.position;
+
+            for (int i = 0; i < _clouds.Length; i++)
             {
-                ShuffleClouds(_clouds);
-                ShuffleClouds(_pickups);
-
-                Vector3 temp = other.transform.position;
-
-                for (int i = 0; i < _clouds.Length; i++)
+                if (!_clouds[i].activeInHierarchy)
                 {
-                    if (!_clouds[i].activeInHierarchy)
-                    {
-                        temp.x = GetCloudPosition(temp);
+                    temp.x = GetCloudPosition(temp);
 
-                        temp.y -= _distanceBetweenClouds;
-                        _lastCloudPositionY = temp.y;
-                        _clouds[i].transform.position = temp;
-                        _clouds[i].SetActive(true);
+                    temp.y -= _distanceBetweenClouds;
+                    _lastCloudPositionY = temp.y;
+                    _clouds[i].transform.position = temp;
+                    _clouds[i].SetActive(true);
 
-                    }
+                    SpawnPickup(i);
                 }
             }
         }
+    }
 
+    private void SpawnPickup(int i)
+    {
+        int random = Random.Range(0, _pickups.Length);
+
+        if (_clouds[i].tag != "KillerCloud")
+        {
+            if (!_pickups[random].activeInHierarchy)
+            {
+                Vector3 temp2 = _clouds[i].transform.position;
+                temp2.y += 0.7f;
+
+                if (_pickups[random].tag == "Life")
+                {
+                    if (PlayerScore.lifeCount < 2)
+                    {
+                        _pickups[random].transform.position = temp2;
+                        _pickups[random].SetActive(true);
+                    }
+                }
+                else
+                {
+                    _pickups[random].transform.position = temp2;
+                    _pickups[random].SetActive(true);
+                }
+
+                _pickups[random].SetActive(true);
+            }
+        }
     }
 }
