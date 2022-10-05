@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3180564163024270193}
   - component: {fileID: 4935150447220760901}
   - component: {fileID: 6833047083477884288}
+  - component: {fileID: 5479669968559609291}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -122,9 +123,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0.4
+  m_LinearDrag: 4
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -182,3 +183,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44fbd5283a579c44b4019fa636409ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5479669968559609291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180564163024270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26c317b13ba3bf40be08ead19b93535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinPickupClip: {fileID: 8300000, guid: b0439edf588caf44ba11ee912654d17a, type: 3}
+  _lifePickupClip: {fileID: 8300000, guid: c5b9b2bc9d124924a8c8a582a245c311, type: 3}

@@ -9,15 +9,15 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private float _acceleration = 1f;
     [SerializeField] private float _maxSpeed = 16f;
 
-    [HideInInspector] public bool _isMoving;
+    [HideInInspector] public bool isMoving;
 
     private void Start()
     {
-        _isMoving = true;
+        isMoving = true;
     }
     private void Update()
     {
-        if (_isMoving)
+        if (isMoving)
         {
             MoveCamera();
         }
