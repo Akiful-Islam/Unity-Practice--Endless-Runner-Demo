@@ -46,13 +46,24 @@ public class PlayerScore : MonoBehaviour
         if (target.tag == "Coin")
         {
             coinCount++;
+            scoreCount += 200;
+
+            GameplayController.instance.SetScore(scoreCount);
+            GameplayController.instance.SetCoinScore(coinCount);
+
             AudioSource.PlayClipAtPoint(_coinPickupClip, transform.position);
+
             target.gameObject.SetActive(false);
         }
 
         if (target.tag == "Life")
         {
             lifeCount++;
+            scoreCount += 300;
+
+            GameplayController.instance.SetScore(scoreCount);
+            GameplayController.instance.SetLifeScore(lifeCount);
+
             AudioSource.PlayClipAtPoint(_lifePickupClip, transform.position);
             target.gameObject.SetActive(false);
         }
