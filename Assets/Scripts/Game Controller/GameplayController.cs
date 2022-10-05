@@ -96,9 +96,21 @@ public class GameplayController : MonoBehaviour
         StartCoroutine(LoadMainMenuOnGameOver());
     }
 
-    public IEnumerator LoadMainMenuOnGameOver()
+    IEnumerator LoadMainMenuOnGameOver()
     {
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RestartOnPlayerDeath()
+    {
+        StartCoroutine(PlayerDeathRestart());
+    }
+
+
+    IEnumerator PlayerDeathRestart()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Gameplay");
     }
 }

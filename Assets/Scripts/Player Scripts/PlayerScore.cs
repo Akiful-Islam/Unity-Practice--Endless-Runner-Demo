@@ -23,17 +23,6 @@ public class PlayerScore : MonoBehaviour
     {
         _previousPosition = transform.position;
         _countScore = true;
-        SetInitialValues();
-    }
-
-    private void SetInitialValues()
-    {
-        scoreCount = 0;
-        lifeCount = 2;
-        coinCount = 0;
-        GameplayController.instance.SetScore(scoreCount);
-        GameplayController.instance.SetCoinScore(coinCount);
-        GameplayController.instance.SetLifeScore(lifeCount);
     }
 
     private void Update()
@@ -54,42 +43,59 @@ public class PlayerScore : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D target)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (target.tag == "Coin")
+        if (other.tag == "Coin")
         {
-            coinCount++;
-            scoreCount += 200;
-
-            GameplayController.instance.SetScore(scoreCount);
-            GameplayController.instance.SetCoinScore(coinCount);
-
-            AudioSource.PlayClipAtPoint(_coinPickupClip, transform.position);
-
-            target.gameObject.SetActive(false);
+            HandleCoinPickupTrigger();
+            other.gameObject.SetActive(false);
         }
 
-        if (target.tag == "Life")
+        if (other.tag == "Life")
         {
-            lifeCount++;
-            scoreCount += 300;
-
-            GameplayController.instance.SetScore(scoreCount);
-            GameplayController.instance.SetLifeScore(lifeCount);
-
-            AudioSource.PlayClipAtPoint(_lifePickupClip, transform.position);
-            target.gameObject.SetActive(false);
+            HandleLifePickupTrigger();
+            other.gameObject.SetActive(false);
         }
 
-        if (target.tag == "Bounds" || target.tag == "KillerCloud")
+        if (other.tag == "Bounds" || other.tag == "KillerCloud")
         {
-            _cameraScript.isMoving = false;
-            _countScore = false;
-
-            lifeCount--;
-            transform.position = new Vector3(500, 500, 0);
-
-            GameplayController.instance.ShowGameOverPanel(scoreCount, coinCount);
+            HandleDeathTrigger();
         }
     }
+
+    private void HandleCoinPickupTrigger()
+    {
+
+        coinCount++;
+        scoreCount += 200;
+
+        GameplayController.instance.SetScore(scoreCount);
+        GameplayController.instance.SetCoinScore(coinCount);
+
+        AudioSource.PlayClipAtPoint(_coinPickupClip, transform.position);
+    }
+
+    private void HandleLifePickupTrigger()
+    {
+        lifeCount++;
+        scoreCount += 300;
+
+        GameplayController.instance.SetScore(scoreCount);
+        GameplayController.instance.SetLifeScore(lifeCount);
+
+        AudioSource.PlayClipAtPoint(_lifePickupClip, transform.position);
+    }
+
+    private void HandleDeathTrigger()
+    {
+        _cameraScript.isMoving = false;
+        _countScore = false;
+
+        lifeCount--;
+        transform.position = new Vector3(500, 500, 0);
+
+        GameplayController.instance.ShowGameOverPanel(scoreCount, coinCount);
+        GameManager.instance.CheckGameStatus(scoreCount, coinCount, lifeCount);
+    }
+
 }

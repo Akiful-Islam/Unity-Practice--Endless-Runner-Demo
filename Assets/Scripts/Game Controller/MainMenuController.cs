@@ -5,13 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
 
     public void StartGame()
     {
+        GameManager.instance.gameStartedFromMainMenu = true;
         SceneManager.LoadScene("Gameplay");
     }
 
