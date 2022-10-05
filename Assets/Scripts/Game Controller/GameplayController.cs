@@ -9,7 +9,7 @@ public class GameplayController : MonoBehaviour
     public static GameplayController instance;
 
     [SerializeField]
-    private TMP_Text scoreText, coinText, lifeText, gameOverScoreText, gameOverCoinText;
+    private TextMeshProUGUI scoreText, coinText, lifeText, gameOverScoreText, gameOverCoinText;
 
     [SerializeField] GameObject pausePanel, gameOverPanel;
 
@@ -28,17 +28,17 @@ public class GameplayController : MonoBehaviour
 
     public void SetScore(int score)
     {
-        scoreText.text = "x" + score;
+        scoreText.text = score.ToString();
     }
 
     public void SetCoinScore(int coinScore)
     {
-        coinText.text = "x" + coinScore;
+        coinText.text = "x" + coinScore.ToString();
     }
 
     public void SetLifeScore(int lifeScore)
     {
-        lifeText.text = "x" + lifeScore;
+        lifeText.text = "x" + lifeScore.ToString();
     }
 
     public void PauseGame()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,20 +23,32 @@ public class PlayerScore : MonoBehaviour
     {
         _previousPosition = transform.position;
         _countScore = true;
+        SetInitialValues();
+    }
+
+    private void SetInitialValues()
+    {
+        scoreCount = 0;
+        lifeCount = 2;
+        coinCount = 0;
+        GameplayController.instance.SetScore(scoreCount);
+        GameplayController.instance.SetCoinScore(coinCount);
+        GameplayController.instance.SetLifeScore(lifeCount);
     }
 
     private void Update()
     {
-        CountScore();
+        UpdateScore();
     }
 
-    private void CountScore()
+    private void UpdateScore()
     {
         if (_countScore)
         {
             if (transform.position.y < _previousPosition.y)
             {
                 scoreCount++;
+                GameplayController.instance.SetScore(scoreCount);
             }
             _previousPosition = transform.position;
         }
