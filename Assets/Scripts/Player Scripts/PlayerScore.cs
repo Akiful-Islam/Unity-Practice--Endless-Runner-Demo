@@ -88,6 +88,8 @@ public class PlayerScore : MonoBehaviour
 
             lifeCount--;
             transform.position = new Vector3(500, 500, 0);
+
+            GameplayController.instance.ShowGameOverPanel(scoreCount, coinCount);
         }
     }
 }
