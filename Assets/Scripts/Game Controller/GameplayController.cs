@@ -16,7 +16,7 @@ public class GameplayController : MonoBehaviour
 
     private void Awake()
     {
-        MakeInstance();
+        MakeSingleton();
     }
 
     private void Start()
@@ -35,12 +35,16 @@ public class GameplayController : MonoBehaviour
 
         Time.timeScale = 0f;
     }
-
-    private void MakeInstance()
+    private void MakeSingleton()
     {
-        if (instance == null)
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
