@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameplayController : MonoBehaviour
 {
@@ -88,7 +87,7 @@ public class GameplayController : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
     }
 
     public void ShowGameOverPanel(int finalScore, int finalCoinScore)
@@ -103,7 +102,7 @@ public class GameplayController : MonoBehaviour
     IEnumerator LoadMainMenuOnGameOver()
     {
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("MainMenu");
+        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
     }
 
     public void RestartOnPlayerDeath()
@@ -115,6 +114,6 @@ public class GameplayController : MonoBehaviour
     IEnumerator PlayerDeathRestart()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Gameplay");
+        SceneFaderScript.instance.FadeToLoadScene("Gameplay");
     }
 }

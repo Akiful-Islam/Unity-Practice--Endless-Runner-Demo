@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
@@ -13,7 +12,7 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
         GameManager.instance.gameStartedFromMainMenu = true;
-        SceneManager.LoadScene("Gameplay");
+        SceneFaderScript.instance.FadeToLoadScene("Gameplay");
     }
 
     private void CheckToPlayMusic()
@@ -32,12 +31,12 @@ public class MainMenuController : MonoBehaviour
 
     public void ShowOptions()
     {
-        SceneManager.LoadScene("Options");
+        SceneFaderScript.instance.FadeToLoadScene("Options");
     }
 
     public void ShowHighScore()
     {
-        SceneManager.LoadScene("HighScore");
+        SceneFaderScript.instance.FadeToLoadScene("HighScore");
     }
 
     public void QuitGame()

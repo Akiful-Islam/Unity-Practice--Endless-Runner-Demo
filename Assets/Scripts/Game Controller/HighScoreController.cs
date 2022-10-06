@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class HighScoreController : MonoBehaviour
 {
@@ -39,6 +38,6 @@ public class HighScoreController : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
     }
 }

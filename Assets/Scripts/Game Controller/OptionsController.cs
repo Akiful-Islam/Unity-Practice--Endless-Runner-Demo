@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class OptionsController : MonoBehaviour
 {
@@ -64,6 +63,6 @@ public class OptionsController : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
     }
 }
