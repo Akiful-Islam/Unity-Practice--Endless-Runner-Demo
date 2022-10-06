@@ -28,32 +28,32 @@ public static class GamePreferences
         return PlayerPrefs.GetInt(IsMusicOn);
     }
 
-    public static void SetEasyDifficulty(int difficulty)
+    public static void SetEasyDifficultyState(int difficulty)
     {
         PlayerPrefs.SetInt(EasyDifficulty, difficulty);
     }
 
-    public static int GetEasyDifficulty()
+    public static int GetEasyDifficultyState()
     {
         return PlayerPrefs.GetInt(EasyDifficulty);
     }
 
-    public static void SetMediumDifficulty(int difficulty)
+    public static void SetMediumDifficultyState(int difficulty)
     {
         PlayerPrefs.SetInt(MediumDifficulty, difficulty);
     }
 
-    public static int GetMediumDifficulty()
+    public static int GetMediumDifficultyState()
     {
         return PlayerPrefs.GetInt(MediumDifficulty);
     }
 
-    public static void SetHardDifficulty(int difficulty)
+    public static void SetHardDifficultyState(int difficulty)
     {
         PlayerPrefs.SetInt(HardDifficulty, difficulty);
     }
 
-    public static int GetHardDifficulty()
+    public static int GetHardDifficultyState()
     {
         return PlayerPrefs.GetInt(HardDifficulty);
     }
