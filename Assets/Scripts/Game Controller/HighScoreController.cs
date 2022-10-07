@@ -38,6 +38,6 @@ public class HighScoreController : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
+        SceneFader.instance.FadeToLoadScene("MainMenu");
     }
 }

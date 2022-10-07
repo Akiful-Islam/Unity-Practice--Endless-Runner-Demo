@@ -6,13 +6,13 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float maxVelocity = 5f;
 
-    private Rigidbody2D myBody;
-    private Animator animator;
+    private Rigidbody2D _myBody;
+    private Animator _animator;
 
     private void Awake()
     {
-        myBody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        _myBody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     void MovePlayerKeyboard()
     {
         float forceX = 0f;
-        float vel = Mathf.Abs(myBody.velocity.x);
+        float vel = Mathf.Abs(_myBody.velocity.x);
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
             temp.x = 1.3f;
             transform.localScale = temp;
 
-            animator.SetBool("isWalking", true);
+            _animator.SetBool("isWalking", true);
         }
         else if (horizontalInput < 0)
         {
@@ -51,14 +51,14 @@ public class Player : MonoBehaviour
             temp.x = -1.3f;
             transform.localScale = temp;
 
-            animator.SetBool("isWalking", true);
+            _animator.SetBool("isWalking", true);
         }
         else
         {
-            animator.SetBool("isWalking", false);
+            _animator.SetBool("isWalking", false);
         }
 
-        myBody.AddForce(new Vector2(forceX, 0));
+        _myBody.AddForce(new Vector2(forceX, 0));
 
     }
 }

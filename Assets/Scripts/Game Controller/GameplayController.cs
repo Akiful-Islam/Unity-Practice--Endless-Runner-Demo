@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameplayController : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameplayController : MonoBehaviour
 
     private void Awake()
     {
-        MakeSingleton();
+        MakeInstance();
     }
 
     private void Start()
@@ -34,17 +35,11 @@ public class GameplayController : MonoBehaviour
 
         Time.timeScale = 0f;
     }
-    private void MakeSingleton()
+
+    private void MakeInstance()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
+        if (instance == null)
             instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
     }
 
     public void StartGame()
@@ -70,6 +65,33 @@ public class GameplayController : MonoBehaviour
         _lifeText.text = "x" + lifeScore.ToString();
     }
 
+    public void ShowGameOverPanel(int finalScore, int finalCoinScore)
+    {
+        _gameOverPanel.SetActive(true);
+        _pauseButton.SetActive(false);
+        _finalScoreText.text = finalScore.ToString();
+        _finalCoinText.text = "Coins Collected x" + finalCoinScore.ToString();
+        StartCoroutine(LoadMainMenuOnGameOver());
+    }
+
+    IEnumerator LoadMainMenuOnGameOver()
+    {
+        yield return StartCoroutine(AnimationCoroutine.WaitForRealSeconds(3f));
+        SceneFader.instance.FadeToLoadScene("MainMenu");
+    }
+
+    public void RestartOnPlayerDeath()
+    {
+        StartCoroutine(PlayerDeathRestart());
+    }
+
+
+    IEnumerator PlayerDeathRestart()
+    {
+        yield return StartCoroutine(AnimationCoroutine.WaitForRealSeconds(1f));
+        SceneFader.instance.FadeToLoadScene("Gameplay");
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -87,33 +109,6 @@ public class GameplayController : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f;
-        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
-    }
-
-    public void ShowGameOverPanel(int finalScore, int finalCoinScore)
-    {
-        _gameOverPanel.SetActive(true);
-        _pauseButton.SetActive(false);
-        _finalScoreText.text = finalScore.ToString();
-        _finalCoinText.text = "Coins Collected x" + finalCoinScore.ToString();
-        StartCoroutine(LoadMainMenuOnGameOver());
-    }
-
-    IEnumerator LoadMainMenuOnGameOver()
-    {
-        yield return new WaitForSeconds(3f);
-        SceneFaderScript.instance.FadeToLoadScene("MainMenu");
-    }
-
-    public void RestartOnPlayerDeath()
-    {
-        StartCoroutine(PlayerDeathRestart());
-    }
-
-
-    IEnumerator PlayerDeathRestart()
-    {
-        yield return new WaitForSeconds(1f);
-        SceneFaderScript.instance.FadeToLoadScene("Gameplay");
+        SceneFader.instance.FadeToLoadScene("MainMenu");
     }
 }

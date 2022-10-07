@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneFaderScript : MonoBehaviour
+public class SceneFader : MonoBehaviour
 {
-    public static SceneFaderScript instance;
+    public static SceneFader instance;
     [SerializeField] private GameObject _fadePanel;
     [SerializeField] private Animator _fadeAnimator;
 

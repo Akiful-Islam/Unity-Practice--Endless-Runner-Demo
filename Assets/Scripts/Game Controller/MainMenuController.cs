@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
         GameManager.instance.gameStartedFromMainMenu = true;
-        SceneFaderScript.instance.FadeToLoadScene("Gameplay");
+        SceneFader.instance.FadeToLoadScene("Gameplay");
     }
 
     private void CheckToPlayMusic()
@@ -31,12 +31,12 @@ public class MainMenuController : MonoBehaviour
 
     public void ShowOptions()
     {
-        SceneFaderScript.instance.FadeToLoadScene("Options");
+        SceneFader.instance.FadeToLoadScene("Options");
     }
 
     public void ShowHighScore()
     {
-        SceneFaderScript.instance.FadeToLoadScene("HighScore");
+        SceneFader.instance.FadeToLoadScene("HighScore");
     }
 
     public void QuitGame()
