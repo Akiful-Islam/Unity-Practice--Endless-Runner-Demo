@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 3180564163024270198}
   - component: {fileID: 3180564163024270194}
   - component: {fileID: 3180564163024270193}
+  - component: {fileID: 3607621314853514976}
   - component: {fileID: 4935150447220760901}
   - component: {fileID: 6833047083477884288}
   - component: {fileID: 5479669968559609291}
-  - component: {fileID: 3607621314853514976}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -158,7 +158,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1.23}
   m_EdgeRadius: 0
---- !u!114 &4935150447220760901
+--- !u!114 &3607621314853514976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,6 +166,20 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3180564163024270197}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d5f50ef77a07f4bbda581244b5ff2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  maxVelocity: 5
+--- !u!114 &4935150447220760901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180564163024270197}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d927f6777862414c936e03f77241a2d, type: 3}
   m_Name: 
@@ -198,15 +212,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinPickupClip: {fileID: 8300000, guid: b0439edf588caf44ba11ee912654d17a, type: 3}
   _lifePickupClip: {fileID: 8300000, guid: c5b9b2bc9d124924a8c8a582a245c311, type: 3}
---- !u!114 &3607621314853514976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3180564163024270197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d5f50ef77a07f4bbda581244b5ff2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

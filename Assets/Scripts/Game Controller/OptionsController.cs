@@ -5,7 +5,7 @@ using UnityEngine;
 public class OptionsController : MonoBehaviour
 {
 
-    [SerializeField] private GameObject easySign, mediumSign, hardSign;
+    [SerializeField] private GameObject _easySign, _mediumSign, _hardSign;
     void Start()
     {
         SetDifficultySign();
@@ -15,23 +15,23 @@ public class OptionsController : MonoBehaviour
     {
         if (GamePreferences.GetEasyDifficultyState() == 1)
         {
-            easySign.SetActive(true);
-            mediumSign.SetActive(false);
-            hardSign.SetActive(false);
+            _easySign.SetActive(true);
+            _mediumSign.SetActive(false);
+            _hardSign.SetActive(false);
         }
 
         if (GamePreferences.GetMediumDifficultyState() == 1)
         {
-            easySign.SetActive(false);
-            mediumSign.SetActive(true);
-            hardSign.SetActive(false);
+            _easySign.SetActive(false);
+            _mediumSign.SetActive(true);
+            _hardSign.SetActive(false);
         }
 
         if (GamePreferences.GetHardDifficultyState() == 1)
         {
-            easySign.SetActive(false);
-            mediumSign.SetActive(false);
-            hardSign.SetActive(true);
+            _easySign.SetActive(false);
+            _mediumSign.SetActive(false);
+            _hardSign.SetActive(true);
         }
     }
 

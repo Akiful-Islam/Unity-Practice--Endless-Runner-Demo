@@ -57,7 +57,6 @@ public class PlayerMoveJoystick : MonoBehaviour
 
 
         _animator.SetBool("isWalking", true);
-        Debug.Log(_animator.GetBool("isWalking"));
 
         _myBody.AddForce(new Vector2(forceX, 0));
     }
@@ -76,7 +75,6 @@ public class PlayerMoveJoystick : MonoBehaviour
         transform.localScale = temp;
 
         _animator.SetBool("isWalking", true);
-        Debug.Log(_animator.GetBool("isWalking"));
 
         _myBody.AddForce(new Vector2(forceX, 0));
     }

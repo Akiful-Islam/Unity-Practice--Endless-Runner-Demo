@@ -17,14 +17,16 @@ public class MainMenuController : MonoBehaviour
 
     private void CheckToPlayMusic()
     {
-        if (GamePreferences.GetMusicState() == 1)
+        if (GamePreferences.GetMusicState() == 0)
         {
-            MusicController.instance.PlayMusic(true);
+            if (MusicController.instance != null)
+            {
+                MusicController.instance.PlayMusic(true);
+            }
             _muteButton.image.sprite = _muteIcons[1];
         }
         else
         {
-            MusicController.instance.PlayMusic(false);
             _muteButton.image.sprite = _muteIcons[0];
         }
     }
@@ -46,16 +48,22 @@ public class MainMenuController : MonoBehaviour
 
     public void ToggleMute()
     {
-        if (GamePreferences.GetMusicState() == 1)
-        {
-            GamePreferences.SetMusicState(0);
-            MusicController.instance.PlayMusic(false);
-            _muteButton.image.sprite = _muteIcons[0];
-        }
-        else if (GamePreferences.GetMusicState() == 0)
+        if (GamePreferences.GetMusicState() == 0)
         {
             GamePreferences.SetMusicState(1);
-            MusicController.instance.PlayMusic(true);
+            if (MusicController.instance != null)
+            {
+                MusicController.instance.PlayMusic(false);
+            }
+            _muteButton.image.sprite = _muteIcons[0];
+        }
+        else
+        {
+            GamePreferences.SetMusicState(0);
+            if (MusicController.instance != null)
+            {
+                MusicController.instance.PlayMusic(true);
+            }
             _muteButton.image.sprite = _muteIcons[1];
         }
     }
