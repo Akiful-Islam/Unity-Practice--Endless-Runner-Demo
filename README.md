@@ -1,10 +1,15 @@
-# [Runless Ender](https://play.unity.com/)
+# Runless Ender
 
 #### Description
 
-A top-down endless runner game made in Unity 2021. With the help of assets provided by Awesome Tuts. In this game, the player jumps from cloud to cloud avoiding death and collecting coins. The game makes use of Unity's **Animator** & **Animation Controller** as well as the **Sprite Editor**. Play the demo [here](https://play.unity.com/).
+A top-down endless runner game made in Unity 2021. With the help of assets provided by Awesome Tuts. In this game, the player jumps from cloud to cloud avoiding death and collecting coins. The game makes use of Unity's **Animator** & **Animation Controller** as well as the **Sprite Editor**.
 
-**Note**: The only goal of this project was to learn and practice the Unity Engine's basics. This project will not be commercialized or made profitable.
+<br/>
+
+**Note**: The only goal of this project was to learn and practice the Unity Engine's basic . This project will not be commercialized or made profitable.
+
+#### Running The Project
+This project is not yet published. To run the project, open it with Unity 2021 or later and start the game in play mode.
 
 ## Features
 
